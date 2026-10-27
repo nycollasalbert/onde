@@ -1,0 +1,11 @@
+{
+  "name": "material-de-estudos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Biblioteca estática de materiais de Matemática, Física e Química.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check-project.mjs"
+  },
+  "engines": { "node": ">=18" }
+}
