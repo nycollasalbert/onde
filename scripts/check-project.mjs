@@ -12,6 +12,17 @@ function check(condition, message) {
   else failures.push(message);
 }
 
+async function htmlFiles(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const target = path.join(directory, entry.name);
+    if (entry.isDirectory() && !['.git', 'dist', 'node_modules'].includes(entry.name)) files.push(...await htmlFiles(target));
+    else if (entry.isFile() && entry.name.toLowerCase().endsWith('.html')) files.push(target);
+  }
+  return files;
+}
+
 const build = spawnSync(process.execPath, ['scripts/build.mjs'], { cwd: root, encoding: 'utf8' });
 check(build.status === 0, 'geração do catálogo');
 if (build.status !== 0) failures.push(build.stderr.trim());
@@ -45,6 +56,22 @@ for (const match of index.matchAll(/(?:href|src)="([^"#]+)"/g)) {
     checks.push(`recurso ${reference}`);
   } catch {
     failures.push(`recurso local ausente: ${reference}`);
+  }
+}
+
+for (const htmlPath of await htmlFiles(root)) {
+  const html = await readFile(htmlPath, 'utf8');
+  for (const match of html.matchAll(/(?:href|src)=["']([^"']+)["']/g)) {
+    const reference = match[1];
+    if (/^(?:#|https?:|\/\/|data:|mailto:|tel:|javascript:)/i.test(reference)) continue;
+    const pathname = decodeURI(reference.split(/[?#]/, 1)[0]);
+    if (!pathname) continue;
+    try {
+      await access(path.resolve(path.dirname(htmlPath), pathname));
+      checks.push(`link ${path.relative(root, htmlPath)} → ${pathname}`);
+    } catch {
+      failures.push(`link quebrado em ${path.relative(root, htmlPath)}: ${reference}`);
+    }
   }
 }
 

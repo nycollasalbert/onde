@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "quimica/modulo_quimica_estequiometria_guia.html",
+    "title": "Estequiometria sem complicar",
+    "subject": "quimica",
+    "subjectLabel": "Química",
+    "topic": "Estequiometria",
+    "description": "Guia fácil de estequiometria com fórmulas, passo a passo, erros comuns e checklist.",
+    "type": "Guia",
+    "url": "quimica/modulo_quimica_estequiometria_guia.html"
+  },
+  {
+    "id": "quimica/modulo_quimica.html",
+    "title": "Introdução e exercícios de Química",
+    "subject": "quimica",
+    "subjectLabel": "Química",
+    "topic": "Estequiometria",
+    "description": "Química: 17 exercícios resolvidos em português, com fórmulas, cálculos e assuntos organizados para estudar.",
+    "type": "Exercícios resolvidos",
+    "url": "quimica/modulo_quimica.html"
+  }
+]

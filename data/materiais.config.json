@@ -1,1 +1,12 @@
-{}
+{
+  "quimica/modulo_quimica.html": {
+    "title": "Introdução e exercícios de Química",
+    "topic": "Estequiometria",
+    "type": "Exercícios resolvidos"
+  },
+  "quimica/modulo_quimica_estequiometria_guia.html": {
+    "title": "Estequiometria sem complicar",
+    "topic": "Estequiometria",
+    "type": "Guia"
+  }
+}
