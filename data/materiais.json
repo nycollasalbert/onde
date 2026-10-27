@@ -1,33 +1,33 @@
 [
   {
-    "id": "fisica/modulo_fisica_assuntos_mext.html",
-    "title": "Física · Assuntos MEXT",
+    "id": "fisica/modulo_fisica_assuntos.html",
+    "title": "Física · Assuntos",
     "subject": "fisica",
     "subjectLabel": "Física",
-    "topic": "Preparação MEXT",
-    "description": "Trilha com 26 assuntos de Física para revisar e praticar na preparação MEXT.",
+    "topic": "Estudos e revisão",
+    "description": "Trilha com 26 assuntos de Física para revisar e praticar nos estudos.",
     "type": "Trilha de assuntos",
-    "url": "fisica/modulo_fisica_assuntos_mext.html"
+    "url": "fisica/modulo_fisica_assuntos.html"
   },
   {
-    "id": "matematica/modulo_matematica_assuntos_mext.html",
-    "title": "Matemática B · Assuntos MEXT",
+    "id": "matematica/modulo_matematica_assuntos.html",
+    "title": "Matemática B · Assuntos",
     "subject": "matematica",
     "subjectLabel": "Matemática",
-    "topic": "Preparação MEXT",
-    "description": "Trilha com 26 assuntos de Matemática B para revisar e praticar na preparação MEXT.",
+    "topic": "Estudos e revisão",
+    "description": "Trilha com 26 assuntos de Matemática B para revisar e praticar nos estudos.",
     "type": "Trilha de assuntos",
-    "url": "matematica/modulo_matematica_assuntos_mext.html"
+    "url": "matematica/modulo_matematica_assuntos.html"
   },
   {
-    "id": "matematica/modulo_matematica_questoes_mext.html",
-    "title": "Questões oficiais MEXT",
+    "id": "matematica/modulo_matematica_questoes.html",
+    "title": "Questões oficiais",
     "subject": "matematica",
     "subjectLabel": "Matemática",
-    "topic": "Preparação MEXT",
-    "description": "70 referências reais de questões de Matemática B para o exame MEXT, organizadas por assunto, com prova e gabarito oficial.",
+    "topic": "Estudos e revisão",
+    "description": "70 referências reais de questões de Matemática B de provas oficiais, organizadas por assunto, com prova e gabarito oficial.",
     "type": "Banco de questões oficiais",
-    "url": "matematica/modulo_matematica_questoes_mext.html"
+    "url": "matematica/modulo_matematica_questoes.html"
   },
   {
     "id": "quimica/modulo_quimica_estequiometria_guia.html",
@@ -50,13 +50,13 @@
     "url": "quimica/modulo_quimica.html"
   },
   {
-    "id": "quimica/modulo_quimica_assuntos_mext.html",
-    "title": "Química · Assuntos MEXT",
+    "id": "quimica/modulo_quimica_assuntos.html",
+    "title": "Química · Assuntos",
     "subject": "quimica",
     "subjectLabel": "Química",
-    "topic": "Preparação MEXT",
-    "description": "Trilha com 26 assuntos de Química para revisar e praticar na preparação MEXT.",
+    "topic": "Estudos e revisão",
+    "description": "Trilha com 26 assuntos de Química para revisar e praticar nos estudos.",
     "type": "Trilha de assuntos",
-    "url": "quimica/modulo_quimica_assuntos_mext.html"
+    "url": "quimica/modulo_quimica_assuntos.html"
   }
 ]
