@@ -25,6 +25,7 @@
     title: document.querySelector('#library-title'),
     library: document.querySelector('.library'),
     pageDescription: document.querySelector('#page-description'),
+    pageTitle: document.querySelector('#page-title'),
     links: [...document.querySelectorAll('[data-subject-link]')]
   };
 
@@ -61,7 +62,7 @@
 
   function createCard(material, index) {
     const card = createElement('a', 'material-card');
-    card.href = material.url;
+    card.href = `/${String(material.url).replace(/^\/+/, '')}`;
     card.setAttribute('aria-label', `Abrir ${material.title}`);
     card.style.setProperty('--reveal-delay', `${Math.min(index * 65, 390)}ms`);
     card.addEventListener('pointermove', (event) => {
@@ -137,6 +138,7 @@
     elements.eyebrow.textContent = subject.eyebrow;
     elements.title.textContent = subject.title;
     elements.pageDescription.textContent = subject.description;
+    elements.pageTitle.textContent = state.subject === 'todos' ? 'Materiais para estudar no seu ritmo.' : `Estude ${subject.name} no seu ritmo.`;
     elements.count.textContent = pluralize(materials.length);
     elements.catalog.replaceChildren();
     for (const subjectKey of ['matematica', 'fisica', 'quimica']) {
@@ -156,7 +158,7 @@
     elements.empty.hidden = true;
     elements.catalog.setAttribute('aria-busy', 'true');
     try {
-      const response = await fetch('data/materiais.json', { cache: 'no-cache' });
+      const response = await fetch('/data/materiais.json', { cache: 'no-cache' });
       if (!response.ok) throw new Error(`Catálogo indisponível (${response.status})`);
       const data = await response.json();
       if (!Array.isArray(data)) throw new TypeError('O catálogo possui um formato inválido.');
@@ -190,6 +192,9 @@
   elements.links.forEach((link) => link.addEventListener('click', (event) => {
     event.preventDefault();
     state.subject = link.dataset.subjectLink;
+    state.query = '';
+    elements.search.value = '';
+    elements.clearSearch.hidden = true;
     window.history.pushState({ subject: state.subject }, '', subjectPath(state.subject));
     render();
     elements.library.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -197,6 +202,9 @@
   document.querySelector('#home-link').addEventListener('click', (event) => {
     event.preventDefault();
     state.subject = 'todos';
+    state.query = '';
+    elements.search.value = '';
+    elements.clearSearch.hidden = true;
     window.history.pushState({ subject: 'todos' }, '', '/');
     render();
     document.querySelector('#conteudo').scrollIntoView({ behavior: 'smooth', block: 'start' });

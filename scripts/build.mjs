@@ -4,7 +4,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'dist');
-const publicEntries = ['index.html', 'assets', 'data', 'matematica', 'fisica', 'quimica'];
+const publicEntries = ['index.html', 'assets', 'data', 'matematica', 'fisica', 'quimica', 'videoaulas'];
 const subjects = new Set(['matematica', 'fisica', 'quimica']);
 const navigationAssets = [
   '<link rel="stylesheet" href="/assets/css/theme.css" data-study-navigation>',

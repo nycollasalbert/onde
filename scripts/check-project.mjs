@@ -28,7 +28,7 @@ const build = spawnSync(process.execPath, ['scripts/build.mjs'], { cwd: root, en
 check(build.status === 0, 'geração do catálogo');
 if (build.status !== 0) failures.push(build.stderr.trim());
 
-const required = ['index.html', 'assets/css/styles.css', 'assets/css/theme.css', 'assets/css/module-navigation.css', 'assets/js/app.js', 'assets/js/theme.js', 'assets/js/module-navigation.js', 'data/materiais.json', 'vercel.json', 'dist/index.html', 'dist/matematica.html', 'dist/fisica.html', 'dist/quimica.html', 'dist/assets/css/theme.css', 'dist/assets/js/theme.js', 'dist/data/materiais.json'];
+const required = ['index.html', 'assets/css/styles.css', 'assets/css/theme.css', 'assets/css/module-navigation.css', 'assets/js/app.js', 'assets/js/theme.js', 'assets/js/module-navigation.js', 'data/materiais.json', 'vercel.json', 'dist/index.html', 'dist/matematica.html', 'dist/fisica.html', 'dist/quimica.html', 'dist/assets/css/theme.css', 'dist/assets/js/theme.js', 'dist/data/materiais.json', 'videoaulas/index.html', 'dist/videoaulas/index.html'];
 for (const file of required) {
   try {
     await access(path.join(root, file));
@@ -44,8 +44,12 @@ check(index.includes('name="viewport"'), 'viewport responsivo');
 check(!/materiaisExemplo|versão de demonstração|integr(aç|ac)ão simulada/i.test(index), 'ausência de conteúdo demonstrativo');
 check(!/href="#(?:todos|matematica|fisica|quimica)"/.test(index), 'filtros sem fragmentos na URL');
 check(index.includes('data-subject-link="matematica"'), 'filtros de matéria por estado');
+check(index.includes('href="/videoaulas/index.html"'), 'módulo de Videoaulas no menu');
+const appCode = await readFile(path.join(root, 'assets/js/app.js'), 'utf8');
+check(appCode.includes("fetch('/data/materiais.json'"), 'catálogo carregado por caminho absoluto');
+check(appCode.includes("card.href = `/"), 'links dos cards começam na raiz');
 check(index.includes('href="/matematica"') && index.includes('href="/fisica"') && index.includes('href="/quimica"'), 'rotas limpas para matérias');
-check(index.includes('?v=20261027-4'), 'versão de recursos para invalidar cache antigo');
+check(index.includes('?v=20261027-5'), 'versão de recursos para invalidar cache antigo');
 
 for (const script of ['assets/js/app.js', 'assets/js/theme.js', 'assets/js/module-navigation.js']) {
   const syntax = spawnSync(process.execPath, ['--check', path.join(root, script)], { encoding: 'utf8' });
