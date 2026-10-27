@@ -37,3 +37,7 @@ Execute `npm run check` para recriar o site e verificar arquivos, links locais, 
 O módulo de [Videoaulas](videoaulas/index.html) reúne recomendações de vídeos e playlists por disciplina, usando URLs do YouTube incorporadas ao HTML. As capas de vídeos específicos são carregadas diretamente do serviço público de miniaturas do YouTube; as playlists possuem capa alternativa. O módulo funciona sem banco de dados e tem navegação independente no menu principal.
 
 Os links são externos, alguns vídeos abordam apenas parte do tema, e a disponibilidade depende do YouTube.
+
+## Ícone do site
+
+O favicon usa `assets/icons/favicon.png` (PNG de 180×180). O `index.html` e `videoaulas/index.html` apontam para ele; o build também injeta o ícone nos módulos de estudo. Para atualizar a imagem, substitua o arquivo e ajuste a versão nos links para evitar cache de ícone antigo.

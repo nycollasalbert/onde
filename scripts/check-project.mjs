@@ -28,7 +28,7 @@ const build = spawnSync(process.execPath, ['scripts/build.mjs'], { cwd: root, en
 check(build.status === 0, 'geração do catálogo');
 if (build.status !== 0) failures.push(build.stderr.trim());
 
-const required = ['index.html', 'assets/css/styles.css', 'assets/css/theme.css', 'assets/css/module-navigation.css', 'assets/js/app.js', 'assets/js/theme.js', 'assets/js/module-navigation.js', 'data/materiais.json', 'vercel.json', 'dist/index.html', 'dist/matematica.html', 'dist/fisica.html', 'dist/quimica.html', 'dist/assets/css/theme.css', 'dist/assets/js/theme.js', 'dist/data/materiais.json', 'videoaulas/index.html', 'dist/videoaulas/index.html'];
+const required = ['index.html', 'assets/css/styles.css', 'assets/css/theme.css', 'assets/css/module-navigation.css', 'assets/js/app.js', 'assets/js/theme.js', 'assets/js/module-navigation.js', 'data/materiais.json', 'vercel.json', 'dist/index.html', 'dist/matematica.html', 'dist/fisica.html', 'dist/quimica.html', 'dist/assets/css/theme.css', 'dist/assets/js/theme.js', 'dist/data/materiais.json', 'assets/icons/favicon.png', 'dist/assets/icons/favicon.png', 'videoaulas/index.html', 'dist/videoaulas/index.html'];
 for (const file of required) {
   try {
     await access(path.join(root, file));
@@ -58,8 +58,12 @@ for (const script of ['assets/js/app.js', 'assets/js/theme.js', 'assets/js/modul
 }
 
 check(index.includes('data-theme-toggle'), 'seletor de tema na página inicial');
+check(index.includes('rel="icon"') && index.includes('/assets/icons/favicon.png'), 'favicon na página inicial');
+const videoPage = await readFile(path.join(root, 'videoaulas/index.html'), 'utf8');
+check(videoPage.includes('rel="icon"'), 'favicon em Videoaulas');
 const builtModule = await readFile(path.join(root, 'dist', catalogModulePath()), 'utf8').catch(() => '');
 check(builtModule.includes('/assets/js/theme.js'), 'tema injetado nos módulos');
+check(builtModule.includes('/assets/icons/favicon.png'), 'favicon injetado nos módulos');
 
 function catalogModulePath() {
   return 'quimica/modulo_quimica.html';

@@ -7,6 +7,8 @@ const output = path.join(root, 'dist');
 const publicEntries = ['index.html', 'assets', 'data', 'matematica', 'fisica', 'quimica', 'videoaulas'];
 const subjects = new Set(['matematica', 'fisica', 'quimica']);
 const navigationAssets = [
+  '<link rel="icon" type="image/png" sizes="180x180" href="/assets/icons/favicon.png?v=20261027-6">',
+  '<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/favicon.png?v=20261027-6">',
   '<link rel="stylesheet" href="/assets/css/theme.css" data-study-navigation>',
   '<script src="/assets/js/theme.js" data-study-navigation></script>',
   '<link rel="stylesheet" href="/assets/css/module-navigation.css" data-study-navigation>',
