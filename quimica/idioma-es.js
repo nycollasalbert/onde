@@ -49,6 +49,8 @@ b.addEventListener('click',function(){temaAtual=tema;renderizar();});
 filtros.appendChild(b);
 });
 }
+const renderizarOriginal=renderizar;
+busca.removeEventListener('input',renderizarOriginal);
 renderizar = function(){
 const termo=normalizar(busca.value.trim());
 const resultado=dados
@@ -105,6 +107,7 @@ history.replaceState(history.state,'',url.href);
 }
 document.getElementById('lang-pt').addEventListener('click',function(){configurarIdioma('pt',true);});
 document.getElementById('lang-es').addEventListener('click',function(){configurarIdioma('es',true);});
+busca.addEventListener('input',renderizar);
 let preferencia='pt';
 try{
 const urlLang=new URLSearchParams(location.search).get('lang');
