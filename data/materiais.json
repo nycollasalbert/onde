@@ -1,5 +1,35 @@
 [
   {
+    "id": "fisica/modulo_fisica_assuntos_mext.html",
+    "title": "Física · Assuntos MEXT",
+    "subject": "fisica",
+    "subjectLabel": "Física",
+    "topic": "Preparação MEXT",
+    "description": "Uma lista organizada de conteúdos para orientar os estudos de Física com base em 26 registros do Notion.",
+    "type": "Trilha de assuntos",
+    "url": "fisica/modulo_fisica_assuntos_mext.html"
+  },
+  {
+    "id": "matematica/modulo_matematica_assuntos_mext.html",
+    "title": "Matemática B · Assuntos MEXT",
+    "subject": "matematica",
+    "subjectLabel": "Matemática",
+    "topic": "Preparação MEXT",
+    "description": "Uma lista organizada de conteúdos para orientar os estudos de Matemática B com base em 26 registros do Notion.",
+    "type": "Trilha de assuntos",
+    "url": "matematica/modulo_matematica_assuntos_mext.html"
+  },
+  {
+    "id": "matematica/modulo_matematica_questoes_mext.html",
+    "title": "Questões oficiais MEXT",
+    "subject": "matematica",
+    "subjectLabel": "Matemática",
+    "topic": "Preparação MEXT",
+    "description": "70 referências reais de questões de Matemática B para o exame MEXT, organizadas por assunto, com prova e gabarito oficial.",
+    "type": "Banco de questões oficiais",
+    "url": "matematica/modulo_matematica_questoes_mext.html"
+  },
+  {
     "id": "quimica/modulo_quimica_estequiometria_guia.html",
     "title": "Estequiometria sem complicar",
     "subject": "quimica",
@@ -18,5 +48,15 @@
     "description": "Química: 17 exercícios resolvidos em português, com fórmulas, cálculos e assuntos organizados para estudar.",
     "type": "Exercícios resolvidos",
     "url": "quimica/modulo_quimica.html"
+  },
+  {
+    "id": "quimica/modulo_quimica_assuntos_mext.html",
+    "title": "Química · Assuntos MEXT",
+    "subject": "quimica",
+    "subjectLabel": "Química",
+    "topic": "Preparação MEXT",
+    "description": "Uma lista organizada de conteúdos para orientar os estudos de Química com base em 26 registros do Notion.",
+    "type": "Trilha de assuntos",
+    "url": "quimica/modulo_quimica_assuntos_mext.html"
   }
 ]

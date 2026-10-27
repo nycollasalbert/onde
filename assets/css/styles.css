@@ -30,7 +30,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .skip-link:focus { transform: translateY(0); }
 
 .site-header { position: sticky; z-index: 10; top: 0; color: white; background: var(--purple-800); box-shadow: 0 5px 22px rgba(46, 16, 101, .2); }
-.header-inner { width: min(1180px, calc(100% - 40px)); min-height: 72px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.header-inner { position: relative; width: min(1180px, calc(100% - 40px)); min-height: 72px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 11px; flex: 0 0 auto; text-decoration: none; font-weight: 820; letter-spacing: -.025em; font-size: 1.12rem; }
 .brand-mark { width: 39px; height: 39px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.25); border-radius: 11px; background: rgba(255,255,255,.12); }
 .brand-mark svg, .status-icon svg { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
@@ -100,6 +100,7 @@ main { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
 @media (max-width: 880px) {
   .header-inner { width: min(100% - 30px,1180px); flex-direction: column; align-items: stretch; gap: 0; padding-top: 14px; }
   .brand { align-self: flex-start; }
+  .header-inner > .theme-toggle { position: absolute; top: 14px; right: 0; }
   .subject-nav { margin-top: 10px; overflow-x: auto; scrollbar-width: none; }
   .subject-nav::-webkit-scrollbar { display: none; }
   .subject-nav a { min-height: 49px; min-width: auto; padding: 0 14px; }

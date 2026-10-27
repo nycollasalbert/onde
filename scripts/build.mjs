@@ -7,6 +7,8 @@ const output = path.join(root, 'dist');
 const publicEntries = ['index.html', 'assets', 'data', 'matematica', 'fisica', 'quimica'];
 const subjects = new Set(['matematica', 'fisica', 'quimica']);
 const navigationAssets = [
+  '<link rel="stylesheet" href="/assets/css/theme.css" data-study-navigation>',
+  '<script src="/assets/js/theme.js" data-study-navigation></script>',
   '<link rel="stylesheet" href="/assets/css/module-navigation.css" data-study-navigation>',
   '<script src="/assets/js/module-navigation.js" defer data-study-navigation></script>'
 ].join('\n  ');
