@@ -12,6 +12,29 @@
 @media(max-width:850px){.topics{grid-template-columns:repeat(2,minmax(0,1fr))}.exercises{grid-template-columns:1fr}.hero{padding:43px 24px;grid-template-columns:1fr}.hero-stat{display:none}.sec-head{display:block}.sec-head p{margin-top:11px}.exercise h3{min-height:0}}
 @media(max-width:560px){.topics{grid-template-columns:1fr}.nav{padding:13px 18px}.hero{padding:38px 18px 47px}.hero h1{font-size:3.65rem}main{padding:22px 15px 50px}.strip{display:block}.print{margin-top:13px;width:100%}.toolbar-top>.action{width:100%}.formula-set{flex-direction:column;width:100%}.formula{width:100%}.topic-card{min-height:auto}}
 @media print{body{background:white}.top{background:white;color:#211b36}.nav a:last-child,.toolbar,.print,.detail summary,.footer{display:none}.hero{padding:15px 0 25px}.hero h1{font-size:2.5rem}.hero p,.eyebrow{color:#555}.hero-stat{display:none}main{max-width:none;padding:0}.strip,.topic-card,.exercise,.formulas{box-shadow:none;break-inside:avoid}.topics{grid-template-columns:repeat(3,1fr)}.exercises{grid-template-columns:1fr}.exercise{padding:12px}.detail{display:block}.detail .steps,.detail .note{display:block!important}.sec-head{margin:30px 0 15px}details:not([open])>.steps,details:not([open])>.note{display:block!important}}
+
+/* Seletor de idioma exclusivo do módulo de exercícios de Química */
+.lang-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:18px;padding:14px 17px;border-radius:15px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.lang-description{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+.lang-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:#f0e9fd;color:#5210b6;font-size:1.15rem}
+.lang-title{font-weight:780;color:var(--ink);display:block;font-size:.91rem}
+.lang-hint{display:block;color:var(--soft);font-size:.79rem}
+.lang-buttons{display:flex;gap:4px;padding:4px;background:#f0eafd;border-radius:11px;border:1px solid #e9e0fc}
+.lang-choice{padding:9px 14px;border-radius:8px;border:0;background:transparent;color:#533e72;font-size:.86rem;font-weight:800;cursor:pointer}
+.lang-choice[aria-pressed="true"]{background:#4b0cae;color:#fff;box-shadow:0 3px 10px #4700b630}
+.lang-choice:focus-visible{outline:3px solid #a582fa;outline-offset:2px}
+.formula-sources{flex-basis:100%;display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;padding-top:12px;border-top:1px solid #d6c8ef;font-size:.78rem;color:#584a73}
+.formula-sources a{color:#4b149a;font-weight:730;text-decoration:underline;text-underline-offset:2px}
+[data-theme="dark"] .lang-bar{background:#211b29;border-color:#40374b}
+[data-theme="dark"] .lang-title{color:#f3effa}
+[data-theme="dark"] .lang-icon,[data-theme="dark"] .lang-buttons{background:#332451;color:#e8dfff;border-color:#574579}
+[data-theme="dark"] .lang-choice{color:#d9c4ff}
+[data-theme="dark"] .lang-choice[aria-pressed="true"]{background:#7844d5;color:#fff}
+[data-theme="dark"] .formula-sources{color:#d5c5f2;border-color:#544276}
+[data-theme="dark"] .formula-sources a{color:#d3baff}
+@media(max-width:560px){.lang-bar{align-items:stretch}.lang-description,.lang-buttons{width:100%}.lang-choice{flex:1}}
+@media print{.lang-bar{display:none}}
+
 </style>
 </head>
 <body>
@@ -20,6 +43,12 @@
 <div class="hero"><div><div class="eyebrow">Biblioteca de estudos / Química</div><h1>Química<span style="color:#d4b7ff">.</span></h1><p>Todos os 17 exercícios das suas anotações, traduzidos para português, resolvidos passo a passo e organizados por assunto.</p></div><div class="hero-stat"><strong>17</strong><span>exercícios resolvidos</span></div></div>
 </header>
 <main>
+<div class="lang-bar" id="language-bar">
+<div class="lang-description"><span class="lang-icon" aria-hidden="true">🌐</span><div><span class="lang-title" id="language-title">Idioma do material</span><span class="lang-hint" id="language-hint">Apenas nesta página de exercícios</span></div></div>
+<div class="lang-buttons" role="group" aria-label="Escolher idioma do material" id="language-options">
+<button class="lang-choice" id="lang-pt" type="button" lang="pt-BR" aria-pressed="true">Português</button>
+<button class="lang-choice" id="lang-es" type="button" lang="es" aria-pressed="false">Español</button>
+</div></div>
 <div class="strip"><div><strong>Material digitalizado e revisado</strong><p>Baseado nas fotos do caderno e da folha de exercícios. As observações sinalizam correções importantes nas contas ou unidades.</p></div><button class="print" onclick="imprimirTudo()">Imprimir / Salvar em PDF ↗</button></div>
 <section id="assuntos"><div class="sec-head"><div><div class="kicker">Mapa dos conteúdos</div><h2>Assuntos destas anotações</h2></div><p>Estude na sequência abaixo: dos conceitos básicos às reações químicas.</p></div>
 <div class="topics"><article class="topic-card"><span class="topic-n">01</span><h3>Fórmulas e composição química</h3><p>Elementos, símbolos, índices e leitura de fórmulas como H₂O, CO₂, NH₃ e CaCO₃.</p><span class="topic-refs">Base para 1–17</span></article>
@@ -31,7 +60,7 @@
 <article class="topic-card"><span class="topic-n">07</span><h3>Conversão de moléculas em massa</h3><p>Passagem de moléculas para mol e depois para gramas.</p><span class="topic-refs">Exercício 14</span></article>
 <article class="topic-card"><span class="topic-n">08</span><h3>Equações químicas e balanceamento</h3><p>Reagentes, produtos e coeficientes das reações.</p><span class="topic-refs">Exercícios 15–17</span></article>
 <article class="topic-card"><span class="topic-n">09</span><h3>Estequiometria</h3><p>Relações mol–mol e massa–massa com quantidade suficiente de reagente.</p><span class="topic-refs">Exercícios 15–17</span></article></div>
-<div class="formulas"><div><strong>Fórmulas mais usadas</strong><p>n = quantidade de mols · m = massa (g) · M = massa molar (g/mol) · N = número de partículas</p></div><div class="formula-set"><span class="formula">n = m ÷ M</span><span class="formula">m = n × M</span><span class="formula">N = n × 6,022 × 10²³</span></div></div>
+<div class="formulas"><div><strong>Fórmulas mais usadas</strong><p>n = quantidade de mols · m = massa (g) · M = massa molar (g/mol) · N = número de partículas</p></div><div class="formula-set"><span class="formula">n = m ÷ M</span><span class="formula">m = n × M</span><span class="formula">N = n × 6,022 × 10²³</span></div><div class="formula-sources"><span id="formula-source-label">Referências para as fórmulas:</span><a href="https://espanol.libretexts.org/Bookshelves/Quimica/Libro%3A_Qu%C3%ADmica_General_%28OpenSTAX%29/03%3A_Composicion_de_Sustancias_y_Soluciones/3.1%3A_La_formula_de_masa_y_el_concepto_del_mol" target="_blank" rel="noopener noreferrer">OpenStax / LibreTexts (ES)</a><a href="https://espanol.libretexts.org/Bookshelves/Quimica/Libro%3A_Qu%C3%ADmica_General_%28OpenSTAX%29/04%3A_Estequiometria_de_las_Reacciones_Quimicas/4.3%3A_La_estequiometria_de_las_reacciones" target="_blank" rel="noopener noreferrer">Estequiometría (ES)</a><a href="https://www.bipm.org/en/measurement-units/si-defining-constants" target="_blank" rel="noopener noreferrer">BIPM · Nₐ</a></div></div>
 </section>
 <section id="questoes"><div class="sec-head"><div><div class="kicker">Prática</div><h2>Exercícios resolvidos</h2></div><p>Clique em “Ver resolução” para acompanhar as contas de cada questão.</p></div>
 <div class="toolbar"><div class="toolbar-top"><input class="search" id="busca" type="search" placeholder="Pesquisar exercício, fórmula ou assunto…" aria-label="Pesquisar exercícios"><button class="action" id="toggleAll" type="button">Mostrar todas as resoluções</button></div><div class="filters" id="filtros" aria-label="Filtrar por assunto"></div></div>
@@ -65,5 +94,6 @@ document.getElementById('toggleAll').addEventListener('click',()=>{expandidos=!e
 function imprimirTudo(){document.querySelectorAll('details').forEach(el=>el.open=true);window.print();}
 renderizar();
 </script>
+<script src="./idioma-es.js?v=20261027-1" defer></script>
 </body>
 </html>
