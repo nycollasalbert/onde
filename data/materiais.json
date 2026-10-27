@@ -5,7 +5,7 @@
     "subject": "fisica",
     "subjectLabel": "Física",
     "topic": "Preparação MEXT",
-    "description": "Uma lista organizada de conteúdos para orientar os estudos de Física com base em 26 registros do Notion.",
+    "description": "Trilha com 26 assuntos de Física para revisar e praticar na preparação MEXT.",
     "type": "Trilha de assuntos",
     "url": "fisica/modulo_fisica_assuntos_mext.html"
   },
@@ -15,7 +15,7 @@
     "subject": "matematica",
     "subjectLabel": "Matemática",
     "topic": "Preparação MEXT",
-    "description": "Uma lista organizada de conteúdos para orientar os estudos de Matemática B com base em 26 registros do Notion.",
+    "description": "Trilha com 26 assuntos de Matemática B para revisar e praticar na preparação MEXT.",
     "type": "Trilha de assuntos",
     "url": "matematica/modulo_matematica_assuntos_mext.html"
   },
@@ -55,7 +55,7 @@
     "subject": "quimica",
     "subjectLabel": "Química",
     "topic": "Preparação MEXT",
-    "description": "Uma lista organizada de conteúdos para orientar os estudos de Química com base em 26 registros do Notion.",
+    "description": "Trilha com 26 assuntos de Química para revisar e praticar na preparação MEXT.",
     "type": "Trilha de assuntos",
     "url": "quimica/modulo_quimica_assuntos_mext.html"
   }
