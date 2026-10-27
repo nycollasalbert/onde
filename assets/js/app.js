@@ -23,6 +23,7 @@
     retry: document.querySelector('#retry-button'),
     eyebrow: document.querySelector('#library-eyebrow'),
     title: document.querySelector('#library-title'),
+    library: document.querySelector('.library'),
     pageDescription: document.querySelector('#page-description'),
     links: [...document.querySelectorAll('[data-subject-link]')]
   };
@@ -180,9 +181,11 @@
     elements.search.focus();
   });
   elements.retry.addEventListener('click', loadMaterials);
-  elements.links.forEach((link) => link.addEventListener('click', () => {
+  elements.links.forEach((link) => link.addEventListener('click', (event) => {
+    event.preventDefault();
     state.subject = link.dataset.subjectLink;
     render();
+    elements.library.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }));
   document.querySelector('#home-link').addEventListener('click', (event) => {
     event.preventDefault();
