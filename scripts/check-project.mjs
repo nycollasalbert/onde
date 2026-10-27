@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const failures = [];
 const checks = [];
+const virtualRoutes = new Set(['/', '/matematica', '/fisica', '/quimica']);
 
 function check(condition, message) {
   if (condition) checks.push(message);
@@ -43,7 +44,8 @@ check(index.includes('name="viewport"'), 'viewport responsivo');
 check(!/materiaisExemplo|versão de demonstração|integr(aç|ac)ão simulada/i.test(index), 'ausência de conteúdo demonstrativo');
 check(!/href="#(?:todos|matematica|fisica|quimica)"/.test(index), 'filtros sem fragmentos na URL');
 check(index.includes('data-subject-link="matematica"'), 'filtros de matéria por estado');
-check(!/<a[^>]+data-subject-link/.test(index) && (index.match(/<button[^>]+data-subject-link/g) || []).length === 4, 'filtros não recarregam a página');
+check(index.includes('href="/matematica"') && index.includes('href="/fisica"') && index.includes('href="/quimica"'), 'rotas limpas para matérias');
+check(index.includes('?v=20261027-4'), 'versão de recursos para invalidar cache antigo');
 
 for (const script of ['assets/js/app.js', 'assets/js/theme.js', 'assets/js/module-navigation.js']) {
   const syntax = spawnSync(process.execPath, ['--check', path.join(root, script)], { encoding: 'utf8' });
@@ -62,8 +64,13 @@ function catalogModulePath() {
 for (const match of index.matchAll(/(?:href|src)="([^"#]+)"/g)) {
   const reference = match[1];
   if (/^(?:https?:|\/\/)/.test(reference)) continue;
+  const pathname = decodeURI(reference.split(/[?#]/, 1)[0]);
+  if (virtualRoutes.has(pathname)) {
+    checks.push(`rota ${pathname}`);
+    continue;
+  }
   try {
-    await access(path.join(root, reference));
+    await access(path.join(root, pathname.replace(/^\//, '')));
     checks.push(`recurso ${reference}`);
   } catch {
     failures.push(`recurso local ausente: ${reference}`);
@@ -77,8 +84,13 @@ for (const htmlPath of await htmlFiles(root)) {
     if (/^(?:#|https?:|\/\/|data:|mailto:|tel:|javascript:)/i.test(reference)) continue;
     const pathname = decodeURI(reference.split(/[?#]/, 1)[0]);
     if (!pathname) continue;
+    if (virtualRoutes.has(pathname)) {
+      checks.push(`rota ${pathname}`);
+      continue;
+    }
     try {
-      await access(path.resolve(path.dirname(htmlPath), pathname));
+      const target = pathname.startsWith('/') ? path.join(root, pathname.slice(1)) : path.resolve(path.dirname(htmlPath), pathname);
+      await access(target);
       checks.push(`link ${path.relative(root, htmlPath)} → ${pathname}`);
     } catch {
       failures.push(`link quebrado em ${path.relative(root, htmlPath)}: ${reference}`);
@@ -105,6 +117,8 @@ for (const subject of ['matematica', 'fisica', 'quimica']) {
 const vercel = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8'));
 check(vercel.buildCommand === 'npm run build', 'build da Vercel');
 check(vercel.outputDirectory === 'dist', 'diretório de publicação da Vercel');
+check(vercel.headers?.[0]?.headers?.[0]?.value === 'public, max-age=0, must-revalidate', 'recursos sem cache imutável');
+check(vercel.rewrites?.length === 3, 'rotas de matérias na Vercel');
 
 if (failures.length) {
   console.error(`Falharam ${failures.length} verificações:\n- ${failures.join('\n- ')}`);

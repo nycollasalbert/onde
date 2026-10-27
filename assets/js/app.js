@@ -8,7 +8,7 @@
     quimica: { name: 'Química', eyebrow: 'Matéria selecionada', title: 'Materiais de Química', description: 'Conteúdos de Química organizados para apoiar seus estudos.' }
   };
 
-  const state = { materials: [], subject: legacySubjectFromHash(), query: '' };
+  const state = { materials: [], subject: subjectFromLocation(), query: '' };
   const elements = {
     catalog: document.querySelector('#catalog'),
     loading: document.querySelector('#loading-state'),
@@ -28,9 +28,15 @@
     links: [...document.querySelectorAll('[data-subject-link]')]
   };
 
-  function legacySubjectFromHash() {
+  function subjectFromLocation() {
+    const route = window.location.pathname.split('/').filter(Boolean)[0]?.toLocaleLowerCase('pt-BR');
+    if (Object.hasOwn(SUBJECTS, route) && route !== 'todos') return route;
     const value = window.location.hash.slice(1).toLocaleLowerCase('pt-BR');
     return Object.hasOwn(SUBJECTS, value) ? value : 'todos';
+  }
+
+  function subjectPath(subject) {
+    return subject === 'todos' ? '/' : `/${subject}`;
   }
 
   function cleanAddress() {
@@ -181,16 +187,23 @@
     elements.search.focus();
   });
   elements.retry.addEventListener('click', loadMaterials);
-  elements.links.forEach((link) => link.addEventListener('click', () => {
+  elements.links.forEach((link) => link.addEventListener('click', (event) => {
+    event.preventDefault();
     state.subject = link.dataset.subjectLink;
+    window.history.pushState({ subject: state.subject }, '', subjectPath(state.subject));
     render();
     elements.library.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }));
   document.querySelector('#home-link').addEventListener('click', (event) => {
     event.preventDefault();
     state.subject = 'todos';
+    window.history.pushState({ subject: 'todos' }, '', '/');
     render();
     document.querySelector('#conteudo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  window.addEventListener('popstate', () => {
+    state.subject = subjectFromLocation();
+    render();
   });
   cleanAddress();
   loadMaterials();
