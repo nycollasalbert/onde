@@ -181,8 +181,7 @@
     elements.search.focus();
   });
   elements.retry.addEventListener('click', loadMaterials);
-  elements.links.forEach((link) => link.addEventListener('click', (event) => {
-    event.preventDefault();
+  elements.links.forEach((link) => link.addEventListener('click', () => {
     state.subject = link.dataset.subjectLink;
     render();
     elements.library.scrollIntoView({ behavior: 'smooth', block: 'start' });

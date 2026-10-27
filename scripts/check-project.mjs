@@ -43,6 +43,7 @@ check(index.includes('name="viewport"'), 'viewport responsivo');
 check(!/materiaisExemplo|versão de demonstração|integr(aç|ac)ão simulada/i.test(index), 'ausência de conteúdo demonstrativo');
 check(!/href="#(?:todos|matematica|fisica|quimica)"/.test(index), 'filtros sem fragmentos na URL');
 check(index.includes('data-subject-link="matematica"'), 'filtros de matéria por estado');
+check(!/<a[^>]+data-subject-link/.test(index) && (index.match(/<button[^>]+data-subject-link/g) || []).length === 4, 'filtros não recarregam a página');
 
 for (const script of ['assets/js/app.js', 'assets/js/theme.js', 'assets/js/module-navigation.js']) {
   const syntax = spawnSync(process.execPath, ['--check', path.join(root, script)], { encoding: 'utf8' });
