@@ -8,7 +8,7 @@
     quimica: { name: 'Química', eyebrow: 'Matéria selecionada', title: 'Materiais de Química', description: 'Conteúdos de Química organizados para apoiar seus estudos.' }
   };
 
-  const state = { materials: [], subject: subjectFromHash(), query: '' };
+  const state = { materials: [], subject: legacySubjectFromHash(), query: '' };
   const elements = {
     catalog: document.querySelector('#catalog'),
     loading: document.querySelector('#loading-state'),
@@ -27,9 +27,14 @@
     links: [...document.querySelectorAll('[data-subject-link]')]
   };
 
-  function subjectFromHash() {
+  function legacySubjectFromHash() {
     const value = window.location.hash.slice(1).toLocaleLowerCase('pt-BR');
     return Object.hasOwn(SUBJECTS, value) ? value : 'todos';
+  }
+
+  function cleanAddress() {
+    if (!window.location.hash) return;
+    window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
   }
 
   function normalize(value) {
@@ -47,10 +52,16 @@
     return element;
   }
 
-  function createCard(material) {
+  function createCard(material, index) {
     const card = createElement('a', 'material-card');
     card.href = material.url;
     card.setAttribute('aria-label', `Abrir ${material.title}`);
+    card.style.setProperty('--reveal-delay', `${Math.min(index * 65, 390)}ms`);
+    card.addEventListener('pointermove', (event) => {
+      const bounds = card.getBoundingClientRect();
+      card.style.setProperty('--spotlight-x', `${event.clientX - bounds.left}px`);
+      card.style.setProperty('--spotlight-y', `${event.clientY - bounds.top}px`);
+    });
     const top = createElement('div', 'card-top');
     top.append(createElement('span', 'subject-badge', material.subjectLabel), createElement('span', 'type-badge', material.type));
     const action = createElement('span', 'open-label', 'Abrir material');
@@ -169,9 +180,16 @@
     elements.search.focus();
   });
   elements.retry.addEventListener('click', loadMaterials);
-  window.addEventListener('hashchange', () => {
-    state.subject = subjectFromHash();
+  elements.links.forEach((link) => link.addEventListener('click', () => {
+    state.subject = link.dataset.subjectLink;
     render();
+  }));
+  document.querySelector('#home-link').addEventListener('click', (event) => {
+    event.preventDefault();
+    state.subject = 'todos';
+    render();
+    document.querySelector('#conteudo').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+  cleanAddress();
   loadMaterials();
 })();
