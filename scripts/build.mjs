@@ -47,4 +47,8 @@ for (const entry of publicEntries) {
   else await copyEntry(source, destination, entry);
 }
 
+for (const subject of subjects) {
+  await copyFile(path.join(root, 'index.html'), path.join(output, `${subject}.html`));
+}
+
 console.log(`Site gerado em ${path.relative(root, output)}/.`);

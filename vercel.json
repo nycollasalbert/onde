@@ -4,11 +4,6 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    { "source": "/matematica", "destination": "/index.html" },
-    { "source": "/fisica", "destination": "/index.html" },
-    { "source": "/quimica", "destination": "/index.html" }
-  ],
   "headers": [
     {
       "source": "/assets/(.*)",

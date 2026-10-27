@@ -28,7 +28,7 @@ const build = spawnSync(process.execPath, ['scripts/build.mjs'], { cwd: root, en
 check(build.status === 0, 'geração do catálogo');
 if (build.status !== 0) failures.push(build.stderr.trim());
 
-const required = ['index.html', 'assets/css/styles.css', 'assets/css/theme.css', 'assets/css/module-navigation.css', 'assets/js/app.js', 'assets/js/theme.js', 'assets/js/module-navigation.js', 'data/materiais.json', 'vercel.json', 'dist/index.html', 'dist/assets/css/theme.css', 'dist/assets/js/theme.js', 'dist/data/materiais.json'];
+const required = ['index.html', 'assets/css/styles.css', 'assets/css/theme.css', 'assets/css/module-navigation.css', 'assets/js/app.js', 'assets/js/theme.js', 'assets/js/module-navigation.js', 'data/materiais.json', 'vercel.json', 'dist/index.html', 'dist/matematica.html', 'dist/fisica.html', 'dist/quimica.html', 'dist/assets/css/theme.css', 'dist/assets/js/theme.js', 'dist/data/materiais.json'];
 for (const file of required) {
   try {
     await access(path.join(root, file));
@@ -118,7 +118,6 @@ const vercel = JSON.parse(await readFile(path.join(root, 'vercel.json'), 'utf8')
 check(vercel.buildCommand === 'npm run build', 'build da Vercel');
 check(vercel.outputDirectory === 'dist', 'diretório de publicação da Vercel');
 check(vercel.headers?.[0]?.headers?.[0]?.value === 'public, max-age=0, must-revalidate', 'recursos sem cache imutável');
-check(vercel.rewrites?.length === 3, 'rotas de matérias na Vercel');
 
 if (failures.length) {
   console.error(`Falharam ${failures.length} verificações:\n- ${failures.join('\n- ')}`);
